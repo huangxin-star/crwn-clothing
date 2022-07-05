@@ -10,12 +10,14 @@ export const CategorieyProvider = ({ children }) => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
       console.log(categoryMap);
-      setCategoryMap(categoryMap)
+      setCategoryMap(categoryMap);
     };
-    getCategoriesMap()
+    getCategoriesMap();
   }, []);
   const value = { categoryMap };
   return (
-    <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>
+    <CategoriesContext.Provider value={value}>
+      {children}
+    </CategoriesContext.Provider>
   );
 };

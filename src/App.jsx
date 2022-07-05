@@ -3,10 +3,23 @@ import "./App.css";
 import Home from "./components/routes/home";
 import Navigation from "./components/routes/navigation/navigation";
 import Authentication from "./components/routes/authentication/authentication";
-import SignUpForm from "./components/routes/sign-up-form/sign-up-form";
 import Shop from "./components/routes/shop/shop";
 import Checkout from "./components/checkout/checkout";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/user/user.action";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase";
 const App = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user))
+    });
+    return unsubscribe;
+  }, []);
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
@@ -20,3 +33,4 @@ const App = () => {
 };
 
 export default App;
+
