@@ -10,14 +10,14 @@ import {
   NavLink,
 } from "./navigation.styles";
 import CartIcon from "../../cart-icon/cart-icon";
-import { CartContext } from "../../../contexts/cart.context";
 import CartDropdown from "../../cart-dropdown/cart-dropdown";
 import { ReactComponent as CrwnLogp } from "../../../assets/crown.svg";
 import { signOutUser } from "../../../utils/firebase/firebase";
+import { selectIsCartOpen } from "../../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../../store/user/user.selector";
 export default function Navigation() {
-  const { isCartOpen } = useContext(CartContext);
-  const currentUser = useSelector(selectCurrentUser)
+  const isCartOpen = useContext(selectIsCartOpen);
+  const currentUser = useSelector(selectCurrentUser);
   return (
     <Fragment>
       <NavigationContainer>
@@ -29,7 +29,7 @@ export default function Navigation() {
             Shop
           </NavLink>
           {currentUser ? (
-            <NavLink as='span' className="nav-link" onClick={signOutUser}>
+            <NavLink as="span" className="nav-link" onClick={signOutUser}>
               sign out
             </NavLink>
           ) : (

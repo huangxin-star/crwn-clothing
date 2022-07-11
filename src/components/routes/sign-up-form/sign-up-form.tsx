@@ -1,12 +1,11 @@
-import React from "react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import FormInput from "../../form-input/form-input";
 import {
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
 } from "../../../utils/firebase/firebase";
 import "./sign-up-form.scss";
-import Button from "../../button/button";
+import Button, { BUTTON_TYPE_CLASSES } from "../../button/button";
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -21,7 +20,7 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -46,7 +45,7 @@ const SignUpForm = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -93,7 +92,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type="submit">注册</Button>
+        <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.base}>注册</Button>
       </form>
     </div>
   );
